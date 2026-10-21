@@ -1,0 +1,187 @@
+
+<div style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 20px 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+">
+
+    <style>
+        
+        .container-mascote-cms {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            animation: flutuarCMS 4s ease-in-out infinite;
+            filter: drop-shadow(0px 20px 25px rgba(0, 0, 0, 0.2));
+        }
+
+        .img-mascote-cms {
+            width: 100%;
+            display: block;
+            height: auto;
+            user-drag: none;
+            -webkit-user-drag: none;
+        }
+
+        @keyframes flutuarCMS {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        
+        .contador-cms-esq {
+            position: absolute;
+            top: 58%; 
+            left: 6%;
+            width: 38%;
+            height: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contador-cms-dir {
+            position: absolute;
+            top: 58%;
+            right: 6%;
+            width: 38%;
+            height: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .linha-tempo-cms {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: clamp(5px, 2vw, 30px);
+            width: 100%;
+            margin-top: -2%;
+        }
+
+        .tempo-box-cms {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .numero-cms {
+            font-size: clamp(20px, 4vw, 60px);
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .cor-saresp { color: #004b93; }
+        .cor-provao { color: #0a7034; }
+
+        .label-cms {
+            font-size: clamp(8px, 1vw, 12px);
+            font-weight: 800;
+            margin-top: 10%;
+        }
+    </style>
+
+    <div class="container-mascote-cms">
+        
+        
+        <img src="https://admin.cms.sp.gov.br/files/URELESTE3/mascote-contador.png?rendition=Original" alt="Mascote Leste 3" class="img-mascote-cms">
+
+        
+        <div class="contador-cms-esq">
+            <div class="linha-tempo-cms">
+                <div class="tempo-box-cms">
+                    <div class="numero-cms cor-saresp" id="s-dias">00</div>
+                    <div class="label-cms cor-saresp">DIAS</div>
+                </div>
+                <div class="tempo-box-cms">
+                    <div class="numero-cms cor-saresp" id="s-horas">00</div>
+                    <div class="label-cms cor-saresp">HORAS</div>
+                </div>
+                <div class="tempo-box-cms">
+                    <div class="numero-cms cor-saresp" id="s-min">00</div>
+                    <div class="label-cms cor-saresp">MINUTOS</div>
+                </div>
+                <div class="tempo-box-cms">
+                    <div class="numero-cms cor-saresp" id="s-seg">00</div>
+                    <div class="label-cms cor-saresp">SEGUNDOS</div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="contador-cms-dir">
+            <div class="linha-tempo-cms">
+                <div class="tempo-box-cms">
+                    <div class="numero-cms cor-provao" id="p-dias">00</div>
+                    <div class="label-cms cor-provao">DIAS</div>
+                </div>
+                <div class="tempo-box-cms">
+                    <div class="numero-cms cor-provao" id="p-horas">00</div>
+                    <div class="label-cms cor-provao">HORAS</div>
+                </div>
+                <div class="tempo-box-cms">
+                    <div class="numero-cms cor-provao" id="p-min">00</div>
+                    <div class="label-cms cor-provao">MINUTOS</div>
+                </div>
+                <div class="tempo-box-cms">
+                    <div class="numero-cms cor-provao" id="p-seg">00</div>
+                    <div class="label-cms cor-provao">SEGUNDOS</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div style="display: none;">
+    <script>
+        (function() {
+            
+            const dataSaresp = new Date("2026-10-28T00:00:00").getTime(); 
+            const dataProvao = new Date("2026-11-10T08:00:00").getTime(); 
+
+            function atualizar() {
+                const agora = new Date().getTime();
+
+                let diffS = dataSaresp - agora;
+                if (diffS < 0) diffS = 0;
+                const sD = Math.floor(diffS / (1000 * 60 * 60 * 24));
+                const sH = Math.floor((diffS % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const sM = Math.floor((diffS % (1000 * 60 * 60)) / (1000 * 60));
+                const sS = Math.floor((diffS % (1000 * 60)) / 1000);
+
+                let diffP = dataProvao - agora;
+                if (diffP < 0) diffP = 0;
+                const pD = Math.floor(diffP / (1000 * 60 * 60 * 24));
+                const pH = Math.floor((diffP % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const pM = Math.floor((diffP % (1000 * 60 * 60)) / (1000 * 60));
+                const pS = Math.floor((diffP % (1000 * 60)) / 1000);
+
+                const elSDias = document.getElementById("s-dias");
+                if(elSDias) {
+                    elSDias.innerText = String(sD).padStart(2, '0');
+                    document.getElementById("s-horas").innerText = String(sH).padStart(2, '0');
+                    document.getElementById("s-min").innerText = String(sM).padStart(2, '0');
+                    document.getElementById("s-seg").innerText = String(sS).padStart(2, '0');
+
+                    document.getElementById("p-dias").innerText = String(pD).padStart(2, '0');
+                    document.getElementById("p-horas").innerText = String(pH).padStart(2, '0');
+                    document.getElementById("p-min").innerText = String(pM).padStart(2, '0');
+                    document.getElementById("p-seg").innerText = String(pS).padStart(2, '0');
+                }
+            }
+            
+            setInterval(atualizar, 1000);
+            atualizar();
+        })();
+    </script>
+</div>
