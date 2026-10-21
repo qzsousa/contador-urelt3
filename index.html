@@ -1,47 +1,31 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contador URELT3</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background: transparent;
-    }
-  </style>
-</head>
-<body>
 
 <div style="
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 2px 0;
+    padding: 20px 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, sans-serif;
 ">
 
     <style>
+        
         .container-mascote-cms {
             position: relative;
             width: 100%;
-            max-width: 750px;
+            max-width: 1100px;
             margin: 0 auto;
-            container-type: inline-size;
             animation: flutuarCMS 4s ease-in-out infinite;
-            filter: drop-shadow(0px 12px 15px rgba(0, 0, 0, 0.18));
+            filter: drop-shadow(0px 20px 25px rgba(0, 0, 0, 0.2));
         }
 
         .img-mascote-cms {
             width: 100%;
             display: block;
             height: auto;
+            user-drag: none;
             -webkit-user-drag: none;
-            user-select: none;
         }
 
         @keyframes flutuarCMS {
@@ -49,10 +33,11 @@
             50% { transform: translateY(-15px); }
         }
 
-        .contador-cms-esq,
-        .contador-cms-dir {
+        
+        .contador-cms-esq {
             position: absolute;
-            top: 58%;
+            top: 58%; 
+            left: 6%;
             width: 38%;
             height: 30%;
             display: flex;
@@ -60,14 +45,24 @@
             justify-content: center;
             align-items: center;
         }
-        .contador-cms-esq { left: 6%; }
-        .contador-cms-dir { right: 6%; }
+
+        .contador-cms-dir {
+            position: absolute;
+            top: 58%;
+            right: 6%;
+            width: 38%;
+            height: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
         .linha-tempo-cms {
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            gap: clamp(9px, 2.8cqi, 36px);
+            gap: clamp(5px, 2vw, 30px);
             width: 100%;
             margin-top: -2%;
         }
@@ -79,7 +74,7 @@
         }
 
         .numero-cms {
-            font-size: clamp(13px, 5.5cqi, 48px);
+            font-size: clamp(20px, 4vw, 60px);
             font-weight: 800;
             line-height: 1;
         }
@@ -88,15 +83,18 @@
         .cor-provao { color: #0a7034; }
 
         .label-cms {
-            font-size: clamp(6px, 1.2cqi, 10px);
+            font-size: clamp(8px, 1vw, 12px);
             font-weight: 800;
             margin-top: 10%;
         }
     </style>
 
     <div class="container-mascote-cms">
+        
+        
         <img src="https://admin.cms.sp.gov.br/files/URELESTE3/mascote-contador.png?rendition=Original" alt="Mascote Leste 3" class="img-mascote-cms">
 
+        
         <div class="contador-cms-esq">
             <div class="linha-tempo-cms">
                 <div class="tempo-box-cms">
@@ -118,6 +116,7 @@
             </div>
         </div>
 
+        
         <div class="contador-cms-dir">
             <div class="linha-tempo-cms">
                 <div class="tempo-box-cms">
@@ -138,14 +137,17 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
+
 
 <div style="display: none;">
     <script>
         (function() {
-            const dataSaresp = new Date("2026-10-28T00:00:00").getTime();
-            const dataProvao = new Date("2026-11-10T08:00:00").getTime();
+            
+            const dataSaresp = new Date("2026-10-28T00:00:00").getTime(); 
+            const dataProvao = new Date("2026-11-10T08:00:00").getTime(); 
 
             function atualizar() {
                 const agora = new Date().getTime();
@@ -165,7 +167,7 @@
                 const pS = Math.floor((diffP % (1000 * 60)) / 1000);
 
                 const elSDias = document.getElementById("s-dias");
-                if (elSDias) {
+                if(elSDias) {
                     elSDias.innerText = String(sD).padStart(2, '0');
                     document.getElementById("s-horas").innerText = String(sH).padStart(2, '0');
                     document.getElementById("s-min").innerText = String(sM).padStart(2, '0');
@@ -177,12 +179,9 @@
                     document.getElementById("p-seg").innerText = String(pS).padStart(2, '0');
                 }
             }
-
+            
             setInterval(atualizar, 1000);
             atualizar();
         })();
     </script>
 </div>
-
-</body>
-</html>
